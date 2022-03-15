@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="shortcut icon" href="./assets/icon-construction.png" type="image/x-icon">
+  <!-- Login Google API -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+  <title>Page Login</title>
+</head>
+
+<body>
+  <div class="content">
+    <div class="form-login">
+      <form action="./index.html">
+        <div class="input-group">
+          <label for="email-input">Email</label>
+          <input type="text" id="email-input">
+        </div>
+        <div class="input-group">
+          <label for="password-input">Password</label>
+          <input type="password" id="password-input">
+        </div>
+        <div class="input-group">
+          <button type="submit" id="login-manual">Login</button>
+        </div>
+      </form>
+      <div class="other-method">
+        <a href="#!" id="login-via-google" data-onsuccess="onSignIn"><span><img
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/1024px-Google_%22G%22_Logo.svg.png"
+              alt="icon-google" width="20px">
+            <p>Login With Google</p>
+          </span></a>
+        <a href="#!" id="login-via-facebook"><span><img
+              src="https://www.facebook.com/images/platform/dialog/oauth/consumer/gdpv5/fbIcon_round_gradient.png"
+              alt="icon-facebook" width="20px">
+            <p>Login With Facebook</p>
+          </span></a>
+      </div>
+    </div>
+  </div>
+  <!-- Script -->
+
+  <!-- Google API -->
+  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
+  <script src="https://apis.google.com/js/api:client.js"></script>
+
+  <!-- Google API LOGIN -->
+  <script src="./assets/google-api.js"></script>
+
+  <!-- Facebook API LOGIN -->
+  <script src="./assets/facebook-api.js"></script>
+
+  <script>
+    cekStoragePLogin();
+
+    function cekStoragePLogin() {
+      let id_token_user = localStorage.getItem("id_token_user");
+
+      if (id_token_user) {
+        window.location = './';
+        console.log('berhasil gan');
+      } else {
+        console.log('enggak ada session');
+        startApp();
+      }
+    }
+    // Cek Methode Login
+    // let method_login = localStorage.getItem("method_login");
+
+    // if (method_login) { // Logged into your webpage and Facebook.
+    //   if (method_login = 'facebook') {
+    //     window.location="./";
+    //   }else{
+    //     window.location="./";
+    //   }
+    // }else{
+    //   // window.location="./login.html?alert=mtd_404";
+    // }
+
+    document.getElementById('login-via-facebook').addEventListener('click', function () {
+      //do the login
+      FB.login(statusChangeCallback, {
+        scope: 'email,public_profile',
+        return_scopes: true
+      });
+    }, false);
+  </script>
+</body>
+
+</html>

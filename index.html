@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="./assets/style.css">
+  <link rel="shortcut icon" href="./assets/icon-construction.png" type="image/x-icon">
+
+  <!-- Login Google API -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+
+  <title>Welcome, name_user</title>
+</head>
+
+<body id="page-home">
+  <div class="wrap-content">
+    <div class="frame-img"><img src="./assets/profile-dummy.svg" id="img-profil" alt="img-user" width="100%"></div>
+    <div class="wrap-welcome">
+      <h1>Welcome</h1>
+      <h1 id="name-profile">Nama User</h1>
+      <span id="email-profile">Email User</span>
+      <a href="#!" id="btn-logout" onclick="">Logout</a>
+    </div>
+    <div class="wrap-img-hello">
+      <img src="./assets/hello.png" alt="hello" width="100%">
+    </div>
+  </div>
+  <script src="https://apis.google.com/js/api:client.js"></script>
+  <!-- Google -->
+  <script src="./assets/google-api.js"></script>
+  <!-- Facebook -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+  <script src="./assets/facebook-api.js"></script>
+  <script>
+    cekStoragePLogin2();
+    function cekStoragePLogin2() {
+      let id_token_user = localStorage.getItem("id_token_user");
+      let method_login = localStorage.getItem("method_login");
+
+      if (id_token_user) {
+        console.log('berhasil gan');
+        replaceDataElement();
+      } else {
+        window.location = './login.html';
+        console.log('enggak ada session');
+      }
+
+      if (method_login == 'google') {
+        document.getElementById("btn-logout").onclick = signOutGoogle;
+      }else{
+        document.getElementById("btn-logout").onclick = signOutFacebook;
+      }
+      
+    }
+    function replaceDataElement() {
+      let name_user = localStorage.getItem("name_user");
+      let email_user = localStorage.getItem("email_user");
+      let img_user = localStorage.getItem("img_user");
+
+      document.getElementById("name-profile").innerHTML = name_user;
+      document.getElementById("email-profile").innerHTML = email_user;
+      document.getElementById("img-profil").src = img_user;
+    }
+  </script>
+</body>
+
+</html>
